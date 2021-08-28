@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Food Blog</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sacramento&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <aside id="leftside"></aside>
+    <aside id="rightside"></aside>
+    <div id="container">
+      <div id="component1">
+        <mycomponent1></mycomponent1>
+      </div>
+
+      <main>
+        <aside id="photos">
+          <img src="images/chili.jpg" alt="White Chicken Chili" width="180" />
+        </aside>
+        <div id="component2">
+          <mycomponent2></mycomponent2>
+        </div>
+
+        <section id="blogposts">
+          <ul>
+            <li
+              class="post"
+              v-for="(post,index) in posts"
+              :key="index"
+              style="list-style: none"
+            >
+              <img
+                v-bind:src="post.imgPath"
+                style="width: 40px; cursor: pointer"
+                @click="post.infobox= !post.infobox;"
+              />
+              {{ post.author }} — {{ post.date }} {{ post.reply }}
+              <div v-html="post.message"></div>
+            </li>
+          </ul>
+
+          <div class="modal" v-for="post in posts" v-show="post.infobox">
+            <p 
+            class="close-button close-modal"
+            @click="post.infobox = false;">x</p>
+            <h1>{{ post.author }}</h1>
+            <div class="modalInfo">
+              <span class="subtitle"
+                >Foodie Level:
+                <span class="modalDisc">{{ post.foodieLevel }}</span></span
+              >
+              <br />
+              <span class="subtitle">Bio:</span>
+              <span class="modalDisc">{{ post.bio }}</span>
+            </div>
+            <button
+              class="close-button"
+              type="button"
+              @click="post.infobox = false;"
+            >
+              Close
+            </button>
+          </div>
+        </section>
+      </main>
+      <footer><p class="copy-right">&copy; Copyright FOOD BLOG</p></footer>
+    </div>
+    <script src="vue.js"></script>
+  </body>
+</html>
